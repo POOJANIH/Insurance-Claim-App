@@ -1,0 +1,74 @@
+/* General Container Styling */
+.accident-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 1rem;
+  text-align: center;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Guidance List Styling */
+.guidance-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.guidance-item {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.guidance-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.example-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Uploaded Photos Section */
+.uploaded-photos {
+  margin-top: 30px;
+}
+
+.uploaded-photos h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.uploaded-photos ul {
+  list-style: none;
+  padding: 0;
+}
+
+.uploaded-photos li {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .guidance-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}

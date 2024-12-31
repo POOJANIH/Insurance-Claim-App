@@ -1,0 +1,21 @@
+/* Ensure proper spacing below navigation bar */
+.home-container {
+  margin-top: 120px;
+  padding: 20px;
+}
+
+.vehicle-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-bottom: 20px; /* Space between cards */
+}
+
+.vehicle-card .card-title {
+  font-size: 10rem;
+  font-weight: bold;
+}
+
+.vehicle-card .card-text {
+  font-size: 1rem;
+  color: #555;
+}

@@ -1,0 +1,109 @@
+/* General Navbar Styling */
+.navbar {
+  transition: background-color 0.3s ease;
+  padding: 0.5rem 1rem;
+}
+
+/* Navbar Toggler Button */
+.navbar-toggler {
+  transition: background-color 0.3s ease;
+  border: none;
+  outline: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Navbar Collapse Transition */
+.navbar-expand-lg .navbar-collapse {
+  transition: all 0.3s ease;
+}
+
+/* Nav Links Styling */
+.navbar-light .navbar-nav .nav-link {
+  color: #000;
+  font-size: 1rem;
+  margin: 0 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+/* Brand Logo Styling */
+.navbar-light .navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #000;
+  transition: color 0.3s ease;
+}
+
+.navbar-light .navbar-brand:hover {
+  color: #007bff;
+}
+
+/* User Icon in Dropdown */
+.user-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+/* Top Navigation Bar Specific Styling */
+.top-nav {
+  border-bottom: 1px solid #ccc;
+  background-color: #f8f9fa;
+}
+
+/* Bottom Navigation Bar Specific Styling */
+.bottom-nav {
+  background-color: #343a40;
+  padding: 0.5rem 0;
+}
+
+.bottom-nav .nav-link {
+  color: #fff;
+  font-size: 1.2rem;
+  margin: 0 1rem;
+  transition: color 0.3s ease;
+}
+
+.bottom-nav .nav-link:hover {
+  color: #007bff;
+}
+
+.bottom-nav .nav-link.active {
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 991px) {
+  .navbar-collapse {
+      background-color: #f8f9fa; /* Light background for mobile */
+  }
+
+  .bottom-nav {
+      text-align: center;
+  }
+
+  .bottom-nav .nav-link {
+      display: block;
+      margin: 0.5rem 0;
+  }
+}
+
+/* Transition Effects for the Theme */
+.navbar-dark .nav-link,
+.navbar-dark .navbar-brand {
+  color: #fff;
+}
+
+.navbar-dark .nav-link:hover,
+.navbar-dark .navbar-brand:hover {
+  color: #007bff;
+}
