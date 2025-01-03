@@ -6,6 +6,11 @@ import Welcome from './components/welcome/Welcome';
 import Login from './components/login/Login';
 import Home from './components/home/Home';
 import Accident from './components/accident/Accident';
+import SectionOne from './components/accident/SectionOne';
+import SectionTwo from './components/accident/SectionTwo';
+import SectionThree from './components/accident/SectionThree';
+import SectionFour from './components/accident/SectionFour';
+import SectionFive from './components/accident/SectionFive';
 import ClaimForm from './components/claimForm/ClaimForm';
 import Notifications from './components/notifications/Notifications';
 
@@ -34,7 +39,12 @@ function App() {
           {/* Home Page Route */}
           <Route path="/home" element={<Home />} />
           {/* Report Accident Page Route */}
-          <Route path="/accident" element={<Accident />} />
+           <Route path="/accident" element={<Accident />} />
+           <Route path="/section-one" element={<SectionOne />} />
+           <Route path="/accident" element={<SectionTwo />} />
+           <Route path="/accident" element={<SectionThree />} />
+           <Route path="/accident" element={<SectionFour />} />
+           <Route path="/accident" element={<SectionFive />} />
           {/* Claim Form Page Route */}
           <Route path="/claimForm" element={<ClaimForm />} />
           {/* Real-time notifications Page Route */}

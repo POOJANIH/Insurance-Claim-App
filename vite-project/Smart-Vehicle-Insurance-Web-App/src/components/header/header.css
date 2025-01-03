@@ -1,109 +1,172 @@
-/* General Navbar Styling */
-.navbar {
-  transition: background-color 0.3s ease;
-  padding: 0.5rem 1rem;
-}
-
-/* Navbar Toggler Button */
-.navbar-toggler {
-  transition: background-color 0.3s ease;
-  border: none;
-  outline: none;
-}
-
-.navbar-toggler:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-/* Navbar Collapse Transition */
-.navbar-expand-lg .navbar-collapse {
-  transition: all 0.3s ease;
-}
-
-/* Nav Links Styling */
-.navbar-light .navbar-nav .nav-link {
-  color: #000;
-  font-size: 1rem;
-  margin: 0 0.5rem;
-  transition: color 0.3s ease;
-}
-
-.navbar-light .navbar-nav .nav-link:hover {
-  color: #007bff;
-}
-
-/* Brand Logo Styling */
-.navbar-light .navbar-brand {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: #000;
-  transition: color 0.3s ease;
-}
-
-.navbar-light .navbar-brand:hover {
-  color: #007bff;
-}
-
-/* User Icon in Dropdown */
-.user-icon {
-  width: 30px;
-  height: 30px;
-  margin-right: 8px;
-  border-radius: 50%;
-}
-
-/* Top Navigation Bar Specific Styling */
+/* Navbar Base Styles */
 .top-nav {
-  border-bottom: 1px solid #ccc;
-  background-color: #f8f9fa;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to right, #ffffff, #f8f9fa);
+  padding: 1rem;
 }
 
-/* Bottom Navigation Bar Specific Styling */
-.bottom-nav {
-  background-color: #343a40;
+/* Brand/Logo */
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, #2563eb, #1e40af);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   padding: 0.5rem 0;
 }
 
-.bottom-nav .nav-link {
-  color: #fff;
-  font-size: 1.2rem;
-  margin: 0 1rem;
-  transition: color 0.3s ease;
+/* Navigation Links */
+.nav-link {
+  position: relative;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.25rem !important;
+  margin: 0 0.25rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.bottom-nav .nav-link:hover {
-  color: #007bff;
+.nav-link svg {
+  font-size: 1.4em;
+  transition: transform 0.2s ease;
 }
 
-.bottom-nav .nav-link.active {
-  color: #007bff;
+.nav-link:hover svg {
+  transform: scale(1.1);
+}
+
+/* Light Theme Navigation */
+.navbar-light .nav-link {
+  color: #1f2937 !important;
+}
+
+.navbar-light .nav-link:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+  color: #2563eb !important;
+}
+
+/* Dark Theme Navigation */
+.navbar-dark .nav-link {
+  color: #f3f4f6 !important;
+}
+
+.navbar-dark .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff !important;
+}
+
+/* Dropdown Styling */
+.dropdown-toggle {
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px;
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  min-width: 200px;
+}
+
+.dropdown-item {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  transform: translateX(5px);
+}
+
+/* Offcanvas Styling */
+.offcanvas {
+  width: 300px !important;
+}
+
+.offcanvas-header {
+  background: linear-gradient(to right, #2563eb, #1e40af);
+  color: white;
+  padding: 1.5rem;
+}
+
+.offcanvas-title {
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.offcanvas-body {
+  padding: 1rem;
+}
+
+.offcanvas-body .nav-link {
+  margin: 0.5rem 0;
+  padding: 1rem !important;
+}
+
+/* Navbar Toggler */
+.navbar-toggler {
+  border: none;
+  padding: 0.5rem;
+  background: #1e40af;
+  color: white;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler:hover {
+  background: #2563eb;
+}
+
+/* Active State */
+.nav-link.active {
+  background-color: rgba(37, 99, 235, 0.2);
   font-weight: bold;
+  color: #1e40af !important;
 }
 
-/* Responsive Design for Smaller Screens */
-@media (max-width: 991px) {
-  .navbar-collapse {
-      background-color: #f8f9fa; /* Light background for mobile */
-  }
-
-  .bottom-nav {
-      text-align: center;
-  }
-
-  .bottom-nav .nav-link {
-      display: block;
-      margin: 0.5rem 0;
-  }
+/* Notification Badge */
+.notification-badge {
+  position: relative;
 }
 
-/* Transition Effects for the Theme */
-.navbar-dark .nav-link,
-.navbar-dark .navbar-brand {
-  color: #fff;
+.notification-badge::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
 }
 
-.navbar-dark .nav-link:hover,
-.navbar-dark .navbar-brand:hover {
-  color: #007bff;
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .offcanvas-title {
+    font-size: 1.2rem;
+  }
 }
