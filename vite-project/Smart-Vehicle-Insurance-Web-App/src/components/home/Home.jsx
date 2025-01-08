@@ -1,66 +1,82 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import "./home.css";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
+import "./home.css";
 
 const Home = () => {
-  // Hardcoded vehicle data
-  const vehicles = [
-    {
-      vehicleId: 1,
-      name: "Vehicle 1",
-      vehicleNumber: "ABC123",
-      imageUrl: "https://via.placeholder.com/300x180",
-    },
-    {
-      vehicleId: 2,
-      name: "Vehicle 2",
-      vehicleNumber: "DEF456",
-      imageUrl: "https://via.placeholder.com/300x180",
-    },
-    {
-      vehicleId: 3,
-      name: "Vehicle 3",
-      vehicleNumber: "GHI789",
-      imageUrl: "https://via.placeholder.com/300x180",
-    },
-  ];
-
-  // State for expanded card
+  const [vehicles, setVehicles] = useState([]);
   const [expandedCard, setExpandedCard] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Toggle the expanded state
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/vehicles/")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch vehicles");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setVehicles(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
+  }, []);
+
   const handleCardToggle = (vehicleId) => {
     setExpandedCard(expandedCard === vehicleId ? null : vehicleId);
   };
+
+  if (loading) {
+    return (
+      <div className="home-container">
+        <Spinner animation="border" variant="primary" />
+        <p>Loading vehicles...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="home-container">Error: {error}</div>;
+  }
 
   return (
     <div className="home-container">
       <h1>Vehicle Information</h1>
       <Row className="g-4">
         {vehicles.map((vehicle) => (
-          <Col md={4} key={vehicle.vehicleId}>
-            <Card>
+          <Col md={4} key={vehicle.id}>
+            <Card className="vehicle-card">
+              {/* Default fallback image */}
               <Card.Img
                 variant="top"
-                src={vehicle.imageUrl}
-                alt={vehicle.vehicleNumber}
+                src="/path/to/default-image.jpg"
+                alt={`Image of ${vehicle.make} ${vehicle.model}`}
               />
               <Card.Body>
-                <Card.Title>{vehicle.name}</Card.Title>
-                <Card.Text>Vehicle Number: {vehicle.vehicleNumber}</Card.Text>
+                <Card.Title>
+                  {vehicle.make} {vehicle.model} ({vehicle.year})
+                </Card.Title>
+                <Card.Text>License Plate: {vehicle.license_plate}</Card.Text>
+                <Card.Text>Chassis Number: {vehicle.chassis_number}</Card.Text>
+                <Card.Text>Engine Number: {vehicle.engine_number}</Card.Text>
                 <Button
                   variant="primary"
-                  onClick={() => handleCardToggle(vehicle.vehicleId)}
+                  onClick={() => handleCardToggle(vehicle.id)}
                 >
-                  {expandedCard === vehicle.vehicleId
+                  {expandedCard === vehicle.id
                     ? "Hide Details"
                     : "View Details"}
                 </Button>
 
-                {expandedCard === vehicle.vehicleId && (
+                {expandedCard === vehicle.id && (
                   <div className="mt-3">
                     <Button
                       as={Link}

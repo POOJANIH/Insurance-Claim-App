@@ -127,7 +127,6 @@ const SectionThree = () => {
               <li>Capture clear, well-lit photos of affected properties</li>
               <li>Include wide shots showing the context of the damage</li>
               <li>Take close-up photos of specific damage areas</li>
-              <li>Include relevant street signs or landmarks if applicable</li>
             </ul>
           </Card.Body>
         </Card>

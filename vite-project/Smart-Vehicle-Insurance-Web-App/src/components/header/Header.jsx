@@ -22,42 +22,25 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="light" expand="lg" className="top-nav">
+      <Navbar bg="light" className="top-nav">
         <Container>
           <Navbar.Brand as={Link} to="/" className="logo">
-            Insurance App
+            <Image
+              src="https://via.placeholder.com/40"
+              onError={(e) => (e.target.src = "/default-logo.png")}
+              alt="Logo"
+              className="logo-img"
+            />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="top-navbar" />
-          <Navbar.Collapse id="top-navbar" className="justify-content-end">
-            <Nav>
-              <Nav.Link
-                as={Link}
-                to="/notifications"
-                className={activeTab === "/notifications" ? "active" : ""}
-              >
-                <FaBell /> Notifications
-              </Nav.Link>
-              <Dropdown align="end">
-                <Dropdown.Toggle variant="light" id="dropdown-basic">
-                  <Image
-                    src="https://via.placeholder.com/30"
-                    onError={(e) => (e.target.src = "/default-profile.png")}
-                    roundedCircle
-                    className="user-icon"
-                  />
-                  Account
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#profile">
-                    <FaUser /> Profile
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#settings">Settings</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item href="#logout">Logout</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Nav>
-          </Navbar.Collapse>
+          <Nav className="ms-auto align-items-center">
+            <Nav.Link
+              as={Link}
+              to="/notifications"
+              className={activeTab === "/notifications" ? "active" : ""}
+            >
+              <FaBell className="notification-icon" />
+            </Nav.Link>
+          </Nav>
         </Container>
       </Navbar>
 
@@ -124,6 +107,17 @@ const Header = () => {
                 >
                   Font Size
                 </Nav.Link>
+                <Dropdown align="end" className="mt-3">
+                  <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                    <FaUser /> Account
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#profile">Profile</Dropdown.Item>
+                    <Dropdown.Item href="#settings">Settings</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item href="#logout">Logout</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

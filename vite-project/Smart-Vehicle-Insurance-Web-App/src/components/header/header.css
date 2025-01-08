@@ -16,6 +16,11 @@
   padding: 0.5rem 0;
 }
 
+.logo-img {
+  height: 40px;
+  width: auto;
+}
+
 /* Navigation Links */
 .nav-link {
   position: relative;
@@ -39,24 +44,37 @@
   transform: scale(1.1);
 }
 
-/* Light Theme Navigation */
-.navbar-light .nav-link {
-  color: #1f2937 !important;
+.nav-link.active {
+  background-color: rgba(37, 99, 235, 0.2);
+  font-weight: bold;
+  color: #1e40af !important;
 }
 
-.navbar-light .nav-link:hover {
-  background-color: rgba(37, 99, 235, 0.1);
-  color: #2563eb !important;
+/* Notification Icon */
+.notification-icon {
+  font-size: 1.5rem;
+  color: #1f2937;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-/* Dark Theme Navigation */
-.navbar-dark .nav-link {
-  color: #f3f4f6 !important;
+.notification-icon:hover {
+  color: #2563eb;
 }
 
-.navbar-dark .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff !important;
+.notification-badge {
+  position: relative;
+}
+
+.notification-badge::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
 }
 
 /* Dropdown Styling */
@@ -73,8 +91,6 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   border-radius: 12px;
   padding: 0.5rem;
-  margin-top: 0.5rem;
-  min-width: 200px;
 }
 
 .dropdown-item {
@@ -93,7 +109,7 @@
   transform: translateX(5px);
 }
 
-/* Offcanvas Styling */
+/* Offcanvas Styles */
 .offcanvas {
   width: 300px !important;
 }
@@ -132,27 +148,24 @@
   background: #2563eb;
 }
 
-/* Active State */
-.nav-link.active {
-  background-color: rgba(37, 99, 235, 0.2);
-  font-weight: bold;
-  color: #1e40af !important;
+/* Light Theme Navigation */
+.navbar-light .nav-link {
+  color: #1f2937 !important;
 }
 
-/* Notification Badge */
-.notification-badge {
-  position: relative;
+.navbar-light .nav-link:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+  color: #2563eb !important;
 }
 
-.notification-badge::after {
-  content: '';
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 8px;
-  height: 8px;
-  background-color: #ef4444;
-  border-radius: 50%;
+/* Dark Theme Navigation */
+.navbar-dark .nav-link {
+  color: #f3f4f6 !important;
+}
+
+.navbar-dark .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff !important;
 }
 
 /* Responsive Adjustments */
@@ -168,5 +181,10 @@
 
   .offcanvas-title {
     font-size: 1.2rem;
+  }
+
+  .notification-icon {
+    position: static;
+    margin-left: auto;
   }
 }
