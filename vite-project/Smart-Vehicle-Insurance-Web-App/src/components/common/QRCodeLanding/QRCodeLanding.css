@@ -1,4 +1,4 @@
-.login-container {
+.qr-code-landing {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -7,7 +7,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.login-container h1 {
+.qr-code-landing h1 {
     text-align: center;
     margin-bottom: 20px;
 }

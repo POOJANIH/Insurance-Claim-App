@@ -1,0 +1,33 @@
+.garage-navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.garage-navbar .navbar-brand {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.garage-navbar .nav-link {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    margin: 0 0.2rem;
+    transition: all 0.3s ease;
+}
+
+.garage-navbar .nav-link:hover {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.garage-navbar .navbar-toggler {
+    border: none;
+}
+
+.garage-navbar .navbar-toggler:focus {
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .garage-navbar .nav-link {
+        padding: 0.75rem 1rem;
+    }
+}

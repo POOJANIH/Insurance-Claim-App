@@ -1,0 +1,163 @@
+/* settings.css */
+.settings-card {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.settings-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.settings-card .card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.settings-card .card-header h4 {
+  display: flex;
+  align-items: center;
+  color: #2c3e50;
+}
+
+.settings-card .card-header svg {
+  margin-right: 0.75rem;
+  color: #0d6efd;
+}
+
+.settings-card .card-body {
+  padding: 1.5rem;
+}
+
+/* Form Controls */
+.form-control, .form-select {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Switch Toggles */
+.form-check-input {
+  width: 3rem;
+  height: 1.5rem;
+  margin-top: 0.25rem;
+  background-color: rgba(13, 110, 253, 0.25);
+  border-color: transparent;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.form-check-label {
+  padding-left: 0.5rem;
+  cursor: pointer;
+}
+
+/* Button Styles */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  transform: translateY(-2px);
+}
+
+/* Alert Styles */
+.alert {
+  border-radius: 0.5rem;
+  border: none;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.alert-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.settings-card {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .settings-card {
+    margin-bottom: 1rem;
+  }
+
+  .settings-card .card-body {
+    padding: 1rem;
+  }
+
+  .form-control, .form-select {
+    padding: 0.5rem;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .settings-card {
+    background-color: #2c3e50;
+    color: #fff;
+  }
+
+  .settings-card .card-header {
+    background-color: #34495e;
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .form-control, .form-select {
+    background-color: #34495e;
+    border-color: #4a6785;
+    color: #fff;
+  }
+
+  .form-control:focus, .form-select:focus {
+    background-color: #3d566e;
+    border-color: #0d6efd;
+  }
+}

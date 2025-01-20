@@ -1,4 +1,4 @@
-.login-container {
+.insurance-login {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -7,7 +7,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.login-container h1 {
+.insurance-login h1 {
     text-align: center;
     margin-bottom: 20px;
 }
@@ -22,8 +22,7 @@
     font-weight: bold;
 }
 
-.form-group input,
-.form-group select {
+.form-group input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;

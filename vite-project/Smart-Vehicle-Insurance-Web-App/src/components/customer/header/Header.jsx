@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Image from "react-bootstrap/Image";
 import Dropdown from "react-bootstrap/Dropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import {
@@ -13,26 +12,34 @@ import {
   FaFileContract,
   FaClipboardList,
   FaPhone,
-} from "react-icons/fa"; // Import icons
-import "./header.css";
+  FaCog,
+  FaSignOutAlt,
+  FaBars,
+} from "react-icons/fa";
 
 const Header = () => {
   const location = useLocation();
   const activeTab = location.pathname;
 
+  const handleLogout = () => {
+    // Add logout logic here
+    console.log("Logging out...");
+  };
+
   return (
     <header>
-      <Navbar bg="light" className="top-nav">
-        <Container>
+      <Navbar bg="light" expand={false} className="top-nav">
+        <Container fluid>
+          {/* Hamburger Menu */}
+          <Navbar.Toggle aria-controls="offcanvas-nav">
+            <FaBars />
+          </Navbar.Toggle>
+
           <Navbar.Brand as={Link} to="/" className="logo">
-            <Image
-              src="https://via.placeholder.com/40"
-              onError={(e) => (e.target.src = "/default-logo.png")}
-              alt="Logo"
-              className="logo-img"
-            />
+            Insurance Claims
           </Navbar.Brand>
-          <Nav className="ms-auto align-items-center">
+
+          <Nav className="ms-auto d-flex align-items-center gap-3">
             <Nav.Link
               as={Link}
               to="/notifications"
@@ -40,22 +47,38 @@ const Header = () => {
             >
               <FaBell className="notification-icon" />
             </Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
 
-      <Navbar bg="dark" variant="dark" expand={false} className="offcanvas-nav">
-        <Container fluid>
-          <Navbar.Toggle aria-controls="offcanvas-navbar" />
+            <Dropdown align="end">
+              <Dropdown.Toggle
+                variant="light"
+                id="dropdown-account"
+                className="account-dropdown"
+              >
+                <FaUser /> John Doe
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item as={Link} to="/profile">
+                  <FaUser className="me-2" /> Profile
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/settings">
+                  <FaCog className="me-2" /> Settings
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={handleLogout}>
+                  <FaSignOutAlt className="me-2" /> Logout
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Nav>
+
+          {/* Off-canvas Navigation */}
           <Navbar.Offcanvas
-            id="offcanvas-navbar"
-            aria-labelledby="offcanvas-navbar-label"
+            id="offcanvas-nav"
+            aria-labelledby="offcanvas-nav-label"
             placement="start"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id="offcanvas-navbar-label">
-                Navigation
-              </Offcanvas.Title>
+              <Offcanvas.Title id="offcanvas-nav-label">Menu</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="flex-column">
@@ -64,7 +87,7 @@ const Header = () => {
                   to="/home"
                   className={activeTab === "/home" ? "active" : ""}
                 >
-                  <FaHome /> Home
+                  <FaHome className="me-2" /> Home
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
@@ -72,52 +95,29 @@ const Header = () => {
                   state={{ step: 1 }}
                   className={activeTab === "/accident" ? "active" : ""}
                 >
-                  <FaClipboardList /> Report an Accident
+                  <FaClipboardList className="me-2" /> Report an Accident
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
                   to="/claimForm"
                   className={activeTab === "/claimForm" ? "active" : ""}
                 >
-                  <FaFileContract /> Claim Form
+                  <FaFileContract className="me-2" /> Claim Form
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
                   to="/claims"
                   className={activeTab === "/claims" ? "active" : ""}
                 >
-                  <FaClipboardList /> Claims
+                  <FaClipboardList className="me-2" /> Claims
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
                   to="/contact"
                   className={activeTab === "/contact" ? "active" : ""}
                 >
-                  <FaPhone /> Contact
+                  <FaPhone className="me-2" /> Contact
                 </Nav.Link>
-                <Nav.Link
-                  href="#theme"
-                  className={activeTab === "#theme" ? "active" : ""}
-                >
-                  Theme
-                </Nav.Link>
-                <Nav.Link
-                  href="#fontsize"
-                  className={activeTab === "#fontsize" ? "active" : ""}
-                >
-                  Font Size
-                </Nav.Link>
-                <Dropdown align="end" className="mt-3">
-                  <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                    <FaUser /> Account
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#profile">Profile</Dropdown.Item>
-                    <Dropdown.Item href="#settings">Settings</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item href="#logout">Logout</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

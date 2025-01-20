@@ -1,0 +1,11 @@
+.garage-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.garage-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
