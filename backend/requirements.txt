@@ -1,0 +1,10 @@
+asgiref==3.8.1
+Django==5.1.5
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.1
+python-dotenv==1.0.1
+Pillow==10.2.0  # for image handling
+psycopg2-binary==2.9.9  # for PostgreSQL
+PyJWT==2.8.0  # for JWT authentication
+django-cors-headers==4.3.1
+sqlparse==0.5.3

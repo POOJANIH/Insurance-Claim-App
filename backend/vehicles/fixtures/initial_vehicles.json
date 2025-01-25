@@ -1,0 +1,18 @@
+[
+    {
+        "model": "vehicles.vehicle",
+        "pk": "550e8400-e29b-41d4-a716-446655440000",
+        "fields": {
+            "make": "Toyota",
+            "model": "Camry",
+            "year": 2020,
+            "chassis_number": "JTDK4BA3A1023456",
+            "engine_number": "2AZ4567890",
+            "license_plate": "ABC123",
+            "vehicle_photos": [],
+            "created_at": "2024-01-24T00:00:00Z",
+            "updated_at": "2024-01-24T00:00:00Z",
+            "owner": 2
+        }
+    }
+] 
