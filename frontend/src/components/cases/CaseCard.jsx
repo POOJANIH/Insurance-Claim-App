@@ -95,6 +95,12 @@ function CaseCard({ caseData }) {
   }, [showModal, caseData.claim_form, caseData.estimate_file]);
 
   useEffect(() => {
+    if (showEstimateModal) {
+      fetchPhotoUrls();
+    }
+  }, [showEstimateModal]);
+
+  useEffect(() => {
     if (showGarageModal) {
       const fetchGarages = async () => {
         setLoadingGarages(true);

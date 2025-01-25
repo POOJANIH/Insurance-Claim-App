@@ -1,0 +1,8 @@
+tensorflow>=2.15.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+Pillow>=10.0.0  # Required for image processing
+fastapi>=0.104.0
+python-multipart>=0.0.6  # Required for file uploads
+uvicorn>=0.24.0  # ASGI server 
+fastapi-cors

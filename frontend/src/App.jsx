@@ -13,14 +13,30 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Login />} />
         <Route path="/report-accident" element={<AccidentReportForm />} />
         <Route path="/submission-success" element={<SubmissionSuccess />} />
+        
+        {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/users" element={<AdminDashboard />} />
+        <Route path="/admin/users/create" element={<AdminDashboard />} />
+        <Route path="/admin/garages" element={<AdminDashboard />} />
+        <Route path="/admin/cases" element={<AdminDashboard />} />
+        
+        {/* Customer Routes */}
         <Route path="/customer/dashboard" element={<CustomerDashboard />} />
-        <Route path="/garage/dashboard" element={<GarageDashboard />} />
-        <Route path="/staff/dashboard" element={<StaffDashboard />} />
+        <Route path="/customer/claims" element={<CustomerDashboard />} />
+        <Route path="/customer/vehicles" element={<CustomerDashboard />} />
         <Route path="/customer/case/:caseId/claim" element={<ClaimForm />} />
+        
+        {/* Garage Routes */}
+        <Route path="/garage/dashboard" element={<GarageDashboard />} />
+        <Route path="/garage/claims" element={<GarageDashboard />} />
+        
+        {/* Staff Routes */}
+        <Route path="/staff/dashboard" element={<StaffDashboard />} />
       </Routes>
     </Router>
   );

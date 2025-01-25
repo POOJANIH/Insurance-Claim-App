@@ -65,7 +65,7 @@ function PhotoUploadSection({
     damage: {
       title: "Damage Documentation",
       description: "Document all damaged areas in detail",
-      alert: "Take close-up shots of all visible damage. Include a ruler or reference object if possible.",
+      alert: "Take close-up shots of all visible damage. Our AI system will analyze the photos to assess damage severity.",
       items: [
         { 
           key: 'interior',
@@ -78,7 +78,7 @@ function PhotoUploadSection({
         { 
           key: 'closeup',
           label: 'Close-up Damage',
-          description: 'Detailed close-up shots of specific damage areas',
+          description: 'Detailed close-up shots of specific damage areas. These will be analyzed by our AI system.',
           max: 2,
           example: 'https://via.placeholder.com/300?text=Closeup',
           required: true
@@ -86,7 +86,7 @@ function PhotoUploadSection({
         { 
           key: 'damage',
           label: 'Overall Damage',
-          description: 'Wider shots showing the full extent of damage',
+          description: 'Wider shots showing the full extent of damage. These will be analyzed by our AI system.',
           max: 4,
           example: 'https://via.placeholder.com/300?text=Damage',
           required: true

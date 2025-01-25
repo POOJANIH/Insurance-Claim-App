@@ -9,11 +9,11 @@ import {
   Alert,
   Modal,
   Toast,
-  ToastContainer
+  ToastContainer,
+  Spinner
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import VehicleInfoForm from '../../../components/accident/VehicleInfo/VehicleInfoForm';
-import PhotoUploadCard from '../../../components/accident/PhotoUpload/PhotoUploadCard';
 import AccidentDetailsForm from '../../../components/accident/AccidentDetails/AccidentDetailsForm';
 import PhotoUploadSection from '../../../components/accident/PhotoUpload/PhotoUploadSection';
 import { API_ENDPOINTS, FILE_TYPES, TOAST_MESSAGES } from '../../../constants';
@@ -48,6 +48,15 @@ function AccidentReportForm() {
   const [uploadProgress, setUploadProgress] = useState({});
   const [previewImage, setPreviewImage] = useState(null);
 
+  // Add new states for ML predictions
+  const [mlPredictions, setMlPredictions] = useState([]);
+  const [showMajorDamageAlert, setShowMajorDamageAlert] = useState(false);
+  const [showMinorDamageAlert, setShowMinorDamageAlert] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [processedPhotos, setProcessedPhotos] = useState(0);
+  const [totalPhotosToProcess, setTotalPhotosToProcess] = useState(0);
+  const [showMajorDamageModal, setShowMajorDamageModal] = useState(false);
+
   // Accident Details States
   const [accidentDetails, setAccidentDetails] = useState({
     date: '',
@@ -69,19 +78,6 @@ function AccidentReportForm() {
 
   // Add loading state
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Photo Categories Configuration
-  const photoSections = [
-    { key: 'front', label: 'Front View', description: 'Capture the entire front of your vehicle', max: 1, example: 'https://via.placeholder.com/300?text=Front+View' },
-    { key: 'back', label: 'Back View', description: 'Include the entire back of your vehicle', max: 1, example: 'https://via.placeholder.com/300?text=Back+View' },
-    { key: 'left', label: 'Left Side', description: 'Full left side view', max: 1, example: 'https://via.placeholder.com/300?text=Left+Side' },
-    { key: 'right', label: 'Right Side', description: 'Full right side view', max: 1, example: 'https://via.placeholder.com/300?text=Right+Side' },
-    { key: 'interior', label: 'Interior View', description: 'Interior damage photos', max: 2, example: 'https://via.placeholder.com/300?text=Interior' },
-    { key: 'closeup', label: 'Close-up Photos', description: 'Detailed damage photos', max: 2, example: 'https://via.placeholder.com/300?text=Closeup' },
-    { key: 'damage', label: 'Damage Photos', description: 'Overall damage views', max: 4, example: 'https://via.placeholder.com/300?text=Damage' },
-    { key: 'additional_photos', label: 'Additional Photos', description: 'Any additional relevant photos', max: 3, example: 'https://via.placeholder.com/300?text=Additional' },
-    { key: 'property_damage', label: 'Property Damage', description: 'Photos of property damage', max: -1, example: 'https://via.placeholder.com/300?text=Property' }
-  ];
 
   // Handlers
   const handleVehicleNumberChange = (value) => {
@@ -179,6 +175,13 @@ function AccidentReportForm() {
     try {
       const uploadedUrls = [];
       
+      // If this is a damage section, set the total photos to process
+      if (sectionKey === 'damage' || sectionKey === 'closeup') {
+        setTotalPhotosToProcess(prev => prev + files.length);
+        setProcessedPhotos(0);
+        setIsProcessing(true);
+      }
+
       for (const file of files) {
         const formData = new FormData();
         formData.append('file', file);
@@ -198,7 +201,6 @@ function AccidentReportForm() {
         // Create a promise to handle the upload
         const uploadPromise = new Promise((resolve, reject) => {
           xhr.onload = () => {
-            // Check for both 200 and 201 status codes
             if (xhr.status === 200 || xhr.status === 201) {
               const response = JSON.parse(xhr.responseText);
               resolve({
@@ -218,6 +220,35 @@ function AccidentReportForm() {
         // Wait for the upload to complete
         const uploadedFile = await uploadPromise;
         uploadedUrls.push(uploadedFile);
+
+        // If this is a damage photo, send it to ML model for prediction
+        if (sectionKey === 'damage' || sectionKey === 'closeup') {
+          try {
+            const mlFormData = new FormData();
+            mlFormData.append('file', file);
+
+            const mlResponse = await fetch('http://localhost:8080/predict', {
+              method: 'POST',
+              body: mlFormData
+            });
+
+            if (mlResponse.ok) {
+              const prediction = await mlResponse.json();
+              setMlPredictions(prev => [...prev, prediction]);
+              setProcessedPhotos(prev => prev + 1);
+
+              // Check if we have a major damage prediction
+              if (prediction.damage_type === 'Major Damage' && !showMajorDamageAlert) {
+                setShowMajorDamageAlert(true);
+                setShowMajorDamageModal(true);
+              } else if (!showMinorDamageAlert && !showMajorDamageAlert) {
+                setShowMinorDamageAlert(true);
+              }
+            }
+          } catch (error) {
+            console.error('ML prediction error:', error);
+          }
+        }
       }
 
       // Update photos state with the uploaded URLs and IDs
@@ -246,8 +277,13 @@ function AccidentReportForm() {
         type: 'danger'
       });
     } finally {
-      // Reset progress
+      // Reset progress and processing state
       setUploadProgress(prev => ({ ...prev, [sectionKey]: 0 }));
+      if (processedPhotos === totalPhotosToProcess) {
+        setIsProcessing(false);
+        setTotalPhotosToProcess(0);
+        setProcessedPhotos(0);
+      }
     }
   };
 
@@ -300,6 +336,10 @@ function AccidentReportForm() {
         property_damage: photos.property_damage.map(photo => photo.id)
       };
 
+      // Determine case severity based on ML predictions
+      const hasMajorDamage = mlPredictions.some(prediction => prediction.damage_type === 'Major Damage');
+      const caseSeverity = hasMajorDamage ? 'MAJOR' : 'MINOR';
+
       // Prepare the submission data
       const submissionData = {
         license_plate: vehicleData.vehicleNumber,
@@ -313,7 +353,7 @@ function AccidentReportForm() {
         police_report: accidentDetails.hasPoliceReport,
         witness: accidentDetails.hasWitness,
         description: accidentDetails.description,
-        case_severity: 'MINOR'
+        case_severity: caseSeverity
       };
 
       console.log('Submitting data:', submissionData); // For debugging
@@ -389,6 +429,31 @@ function AccidentReportForm() {
                 {/* Photo Upload Section */}
                 <section className={`mb-5 ${!isVehicleValidated ? 'opacity-50' : ''}`}>
                   <h4 className="mb-4">Accident Documentation</h4>
+                  {isProcessing && (
+                    <Alert variant="info" className="d-flex align-items-center">
+                      <div className="me-3">
+                        <Spinner animation="border" variant="primary" size="sm" />
+                      </div>
+                      <div className="flex-grow-1">
+                        <strong>Analyzing damage with AI...</strong>
+                        <div className="small text-muted">
+                          Processed {processedPhotos} of {totalPhotosToProcess} photos
+                        </div>
+                      </div>
+                    </Alert>
+                  )}
+                  {showMajorDamageAlert && (
+                    <Alert variant="danger" onClose={() => setShowMajorDamageAlert(false)} dismissible>
+                      <Alert.Heading>⚠️ Major Damage Detected!</Alert.Heading>
+                      <p>Alert! You have major damage to your vehicle. Stay in the place of accident until Police or Help comes.</p>
+                    </Alert>
+                  )}
+                  {showMinorDamageAlert && !showMajorDamageAlert && (
+                    <Alert variant="warning" onClose={() => setShowMinorDamageAlert(false)} dismissible>
+                      <Alert.Heading>Minor Damage Assessment</Alert.Heading>
+                      <p>You can take your vehicle. You can claim insurance later.</p>
+                    </Alert>
+                  )}
                   <PhotoUploadSection
                     photos={photos}
                     onTakePhoto={handleTakePhoto}
@@ -480,6 +545,37 @@ function AccidentReportForm() {
             style={{ maxHeight: '80vh', objectFit: 'contain' }} 
           />
         </Modal.Body>
+      </Modal>
+
+      {/* Major Damage Alert Modal */}
+      <Modal
+        show={showMajorDamageModal}
+        onHide={() => setShowMajorDamageModal(false)}
+        centered
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton style={{ background: '#dc3545', color: 'white' }}>
+          <Modal.Title>
+            <span role="img" aria-label="warning">⚠️</span> Major Damage Alert
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="p-4">
+          <h4 className="mb-3">Important Safety Notice</h4>
+          <p className="mb-4">Major damage has been detected in your vehicle. For your safety:</p>
+          <ul className="mb-4">
+            <li>Do not move your vehicle</li>
+            <li>Stay at the accident location</li>
+            <li>Wait for police or emergency services</li>
+            <li>Document everything thoroughly</li>
+          </ul>
+          <p className="mb-0 text-danger"><strong>Your safety is our primary concern.</strong></p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowMajorDamageModal(false)}>
+            I Understand
+          </Button>
+        </Modal.Footer>
       </Modal>
     </Container>
   );

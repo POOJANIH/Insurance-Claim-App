@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'insurance_db',
         'USER': 'postgres',
-        'PASSWORD': '1234',
+        'PASSWORD': 'sHeroniKa@10',
         'HOST': 'localhost',
         'PORT': '5432',
     }
